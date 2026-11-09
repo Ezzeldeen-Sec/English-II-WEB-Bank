@@ -55,7 +55,7 @@ Researchers in the U.S. have found that these negative feelings occur much more 
 What does the term "beat" mean in journalism?|A reporter’s regular assignment|A type of music|A type of camera shot|A type of microphone|a
 =17
 What is the term for the person who reads the news on television?|Anchor|Reporter|Correspondent|Producer|a
-What is the term for a story that is not true?|Fiction|Non-fiction|News|Propaganda|a
+What is the term for a story that is not true?|Fiction|Non-fiction|News|Propaganda|d
 What is the term for the process of sending a message from one person to another?|Encoding|Decoding|Transmitting|Receiving|c
 What is the term for the person who operates the camera on a film or television set?|Director|Producer|Cinematographer|Editor|c
 What is the term for the process of removing unwanted parts of a recording?|Editing|Scripting|Producing|Directing|a
@@ -154,13 +154,12 @@ What is the purpose of the conclusion in a persuasive essay?|To summarize the ma
 What is the purpose of evidence in a persuasive essay?|To support the writer’s argument|To introduce the topic and provide background information|To summarize the main points of the essay|To conclude the essay|a
 What is the purpose of transitional words and phrases in a persuasive essay?|To connect ideas and make the essay easier to read|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
 What is the purpose of a topic sentence in a persuasive essay?|To introduce the main idea of a paragraph|To provide evidence to support the writer’s argument|To summarize the main points of the essay|To conclude the essay|a
-What is the purpose of a concluding sentence in a persuasive essay?|To summarize the main idea of a paragraph|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To clarify the essay|a
-What is the purpose of a hook in a persuasive essay?|To grab the reader’s attention|To provide evidence to support the navigational guidelines|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a concluding sentence in a persuasive essay?|To summarize the main idea of a paragraph|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To clarify the essay|b
+What is the purpose of a hook in a persuasive essay?|To grab the reader’s attention|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
 What is the purpose of a call to action in a persuasive essay?|To encourage the reader to take action|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a`.split("\n").map(l=>l.split("|"));
 const Q=R.map((r,i)=>{if(r[0][0]==="="){r=R[+r[0].slice(1)-1]}return{q:r[0],o:r.slice(1,5),a:"abcd".indexOf(r[5])}});
 
-// استرجاع البيانات المحفوظة إن وجدت
-let i = 0, ans = Array(Q.length).fill(null), pend = Array(Q.length).fill(null), flags = new Set(), mode = "quiz";
+let i = 0, ans = Array(Q.length).fill(null), flags = new Set(), mode = "quiz";
 
 try {
   const savedAns = localStorage.getItem("quiz_ans");
@@ -181,11 +180,9 @@ const save = () => {
   } catch (e) {}
 };
 
-// دالة تصفير واستئناف الامتحانات
 const resetQuiz = () => {
   if (confirm("هل أنت متأكد من رغبتك في تصفير وإعادة الامتحان من البداية؟")) {
     ans = Array(Q.length).fill(null);
-    pend = Array(Q.length).fill(null);
     i = 0;
     mode = "quiz";
     localStorage.removeItem("quiz_ans");
@@ -193,6 +190,12 @@ const resetQuiz = () => {
     localStorage.removeItem("quiz_mode");
     render();
   }
+};
+
+const solveAllCorrect = () => {
+  ans = Q.map(q => q.a);
+  mode = "quiz";
+  render();
 };
 
 const nAns = () => ans.filter(x => x !== null).length;
@@ -218,29 +221,36 @@ function chips(list, c) { return `<div class="chips">` + list.map(k => `<button 
 function bindChips() { document.querySelectorAll(".chip").forEach(b => b.onclick = () => { i = +b.dataset.j; mode = "quiz"; render(); }); }
 
 function render(){
- save(); // حفظ التقدم تلقائياً مع كل عملية رندر
+ save();
  menu();
  if(mode === "res") return res();
- const d = Q[i], a = ans[i], done = a !== null, p = done ? a : pend[i];
+ const d = Q[i], a = ans[i], done = a !== null;
  $("n").textContent = `سؤال ${i + 1} من ${Q.length}`;
  $("s").textContent = `✓ ${nOk()}   ✗ ${nAns() - nOk()}`;
  $("p").style.width = (nAns() / Q.length * 100) + "%";
  const fb = done ? (a === d.a ? `<div class="fb ok">✓ إجابة صحيحة</div>` : `<div class="fb no">✗ إجابة خاطئة — الإجابة الصحيحة: ${"ABCD"[d.a]}</div>`) : "";
  
- $("box").innerHTML = `<div class="top"><button class="fl${flags.has(i) ? " on" : ""}" id="fl">${flags.has(i) ? "★ مهم" : "☆ تعليم كمهم"}</button><button class="lnk" id="fin">إنهاء وعرض النتيجة</button></div><p class="q">${i + 1}. ${d.q}</p>` + d.o.map((t, k) => `<button class="opt ${done ? (k === d.a ? "ok" : k === a ? "no" : "") : (k === p ? "sel" : "")}" data-k="${k}" ${done ? "disabled" : ""}>${"ABCD"[k]}. ${t}</button>`).join("") + fb + `<div class="nav"><button class="btn ghost" id="bk" ${i ? "" : "disabled"}>السابق</button><button class="btn" id="go" ${!done && p == null ? "disabled" : ""}>${done ? (i === Q.length - 1 ? "عرض النتيجة" : "التالي") : "إرسال"}</button></div>`;
+ // تم إضافة زر حل الكل تحت "إنهاء وعرض النتيجة" مباشرة بنفس الشكل مع أيقونة العين 👁
+ $("box").innerHTML = `<div class="top"><button class="fl${flags.has(i) ? " on" : ""}" id="fl">${flags.has(i) ? "★ مهم" : "☆ تعليم كمهم"}</button><button class="lnk" id="fin">إنهاء وعرض النتيجة</button></div><button class="lnk" id="solve_all_btn" style="display:block; margin:4px 0 12px; color:var(--pri); font-weight:600;">👁 حل الكل وعرض الإجابات</button><p class="q">${i + 1}. ${d.q}</p>` + d.o.map((t, k) => `<button class="opt ${done ? (k === d.a ? "ok" : (k === a ? "no" : "")) : ""}" data-k="${k}">${"ABCD"[k]}. ${t}</button>`).join("") + fb + `<div class="nav"><button class="btn ghost" id="bk" ${i ? "" : "disabled"}>السابق</button><button class="btn" id="go" ${i === Q.length - 1 ? "" : ""}>${i === Q.length - 1 ? "عرض النتيجة" : "التالي"}</button></div>`;
  
- document.querySelectorAll(".opt").forEach(b => b.onclick = () => { if(ans[i] !== null) return; pend[i] = +b.dataset.k; render(); });
+ document.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+   if(ans[i] !== null) return;
+   ans[i] = +b.dataset.k;
+   render();
+ });
+
  $("fl").onclick = () => { flags.has(i) ? flags.delete(i) : flags.add(i); save(); render(); };
  $("fin").onclick = () => { mode = "res"; render(); };
+ $("solve_all_btn").onclick = () => { solveAllCorrect(); };
  $("bk").onclick = () => { if(i > 0){ i--; render(); } };
- $("go").onclick = () => { if(ans[i] === null){ ans[i] = pend[i]; } else if(i === Q.length - 1){ mode = "res"; } else { i++; } render(); };
+ $("go").onclick = () => { if(i === Q.length - 1){ mode = "res"; } else { i++; } render(); };
 }
 
 function res(){
  const ok = nOk(), bad = nAns() - ok, un = Q.length - nAns(), pc = Math.round(ok / Q.length * 100);
  const wrong = ans.map((a, k) => a !== null && a !== Q[k].a ? k : -1).filter(k => k >= 0), fl = [...flags].sort((a, b) => a - b), skip = ans.map((a, k) => a === null ? k : -1).filter(k => k >= 0);
  
- save(); // حفظ حالة النتيجة أيضاً
+ save();
  $("n").textContent = "النتيجة"; $("s").textContent = ""; $("p").style.width = (nAns() / Q.length * 100) + "%";
  
  $("box").innerHTML = `<div class="c">النتيجة النهائية</div><div class="big">${pc}%</div><div class="stats"><div class="st g"><b>${ok}</b>إجابات صحيحة</div><div class="st r"><b>${bad}</b>إجابات خاطئة</div><div class="st"><b>${un}</b>لم تتم الإجابة</div><div class="st"><b>${Q.length}</b>إجمالي الأسئلة</div></div>` + (wrong.length ? `<h3>الأسئلة الخاطئة (اضغط للمراجعة)</h3>${chips(wrong, "r")}` : "") + (fl.length ? `<h3>الأسئلة المهمة ★</h3>${chips(fl, "s")}` : "") + (skip.length ? `<h3>أسئلة لم تُجب</h3>${chips(skip, "")}` : "") + `<div class="nav"><button class="btn ghost" id="bq">العودة للاختبار</button><button class="btn" id="rs">إعادة الاختبار</button></div>`;
