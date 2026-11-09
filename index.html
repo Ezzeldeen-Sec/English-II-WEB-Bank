@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>English Two Quiz</title>
+<style>
+:root{--bg:#f4efe6;--card:#fbf8f2;--tx:#33302b;--mut:#7b756a;--bd:#e2dacb;--pri:#4f7a73;--ok:#3d7a4a;--okb:#e3efe2;--no:#b2504a;--nob:#f6e4e0;--star:#c98a1b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1c1f1e;--card:#252927;--tx:#e6e3dc;--mut:#9a968c;--bd:#3a3f3c;--pri:#7fb3a8;--ok:#8fcf9a;--okb:#223427;--no:#e59a93;--nob:#3b2523;--star:#e8b04a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;line-height:1.5}
+.w{max-width:640px;margin:0 auto;padding:16px}
+.bar{height:8px;background:var(--bd);border-radius:8px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:var(--pri);width:0;transition:width .3s}
+.meta{display:flex;justify-content:space-between;color:var(--mut);font-size:14px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-top:14px}
+.q{direction:ltr;text-align:left;font-size:18px;font-weight:600;margin:0 0 14px}
+.opt{direction:ltr;text-align:left;display:block;width:100%;padding:12px 14px;margin:8px 0;background:var(--card);color:var(--tx);border:2px solid var(--bd);border-radius:10px;font-size:16px;cursor:pointer;font-family:inherit}
+.opt.sel{border-color:var(--pri)}
+.opt.ok{border-color:var(--ok);background:var(--okb)}
+.opt.no{border-color:var(--no);background:var(--nob)}
+.opt:disabled{cursor:default}
+.btn{width:100%;padding:14px;border:0;border-radius:10px;background:var(--pri);color:#fff;font-size:16px;font-weight:600;margin-top:12px;cursor:pointer;font-family:inherit}
+.btn:disabled{opacity:.4}
+.fb{margin-top:10px;font-weight:600}
+.fb.ok{color:var(--ok)}.fb.no{color:var(--no)}
+.big{font-size:44px;text-align:center;margin:8px 0;font-weight:700}
+.c{text-align:center}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.fl{background:none;border:1px solid var(--bd);color:var(--mut);border-radius:20px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}.fl.on{color:var(--star);border-color:var(--star);font-weight:600}.lnk{background:none;border:0;color:var(--mut);text-decoration:underline;font-size:14px;cursor:pointer;font-family:inherit}.nav{display:flex;gap:10px;margin-top:14px}.nav .btn{margin-top:0}.btn.ghost{background:transparent;color:var(--pri);border:2px solid var(--pri)}.opt{line-height:1.45}.card{box-shadow:0 2px 10px rgba(0,0,0,.04)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.st{border-radius:12px;padding:12px;text-align:center;background:var(--bg)}.st b{display:block;font-size:28px}.st.g b{color:var(--ok)}.st.r b{color:var(--no)}.chips{display:flex;flex-wrap:wrap;gap:8px;direction:ltr;margin:8px 0 14px}.chip{min-width:44px;padding:8px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;font-family:inherit;font-size:15px}.chip.r{border-color:var(--no)}.chip.s{border-color:var(--star)}h3{margin:16px 0 0;font-size:16px}.dr{position:fixed;inset:0;z-index:20;display:none}.dr.open{display:block}.bk2{position:absolute;inset:0;background:rgba(0,0,0,.4)}.pn{position:absolute;top:0;bottom:0;right:0;width:min(330px,88vw);background:var(--card);padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto;border-left:1px solid var(--bd)}.g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;direction:ltr;margin-top:10px}.qb{position:relative;padding:10px 0;border-radius:8px;border:2px solid var(--bd);background:var(--bg);color:var(--tx);font-family:inherit;font-size:14px;cursor:pointer}.qb.ok{background:var(--okb);border-color:var(--ok)}.qb.no{background:var(--nob);border-color:var(--no)}.qb.cur{outline:3px solid var(--pri);outline-offset:1px}.qb.sr::after{content:"★";position:absolute;top:-7px;right:-3px;font-size:13px;color:var(--star)}.lg{font-size:13px;color:var(--mut);line-height:1.8}.mb{background:var(--card);border:1px solid var(--bd);color:var(--tx);border-radius:20px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}</style>
+</head>
+<body>
+<div class="w">
+<div class="meta"><button class="mb" id="mb">☰ قائمة الأسئلة</button><span id="n"></span><span id="s"></span></div><div class="dr" id="dr"></div>
+<div class="bar"><i id="p"></i></div>
+<div class="card" id="box"></div>
+</div>
+<script>
+const R=`A collection of related pages on the World Wide Web created by a company, organization, or an individual is called ____.|log on|download|broadcasts|websites|d
+The international network linking millions of computers is called ____.|tabloids|download|website|the internet|d
+People who write for newspapers or periodicals are ____.|coverage|websites|journalists|current affairs|c
+The newspapers which expose people’s private life to fill their pockets with dirty money are called ____.|current affairs|readership|gutter press|information overload|c
+The amount of space or time given to an event in newspapers or on television is called ____.|broadsheets|information overload|coverage|log on|c
+The term "TV addiction" is imprecise. What is the meaning of "imprecise"?|accurate|inaccurate|different|indifferent|b
+People nowadays are suffering from ____ due to the variety of news sources and their consistent updates.|exploiting|information overload|unscrupulous|libel|b
+He woke up to find his private photos published in the local newspaper, he decided to sue it for ____.|exploiting|information overload|unscrupulous|libel|d
+Businessmen are accused of raising the prices and ____ the current economic situation to make more profits.|exploiting|information overload|unscrupulous|libel|a
+The amount of studies, research, and experiments done by Professor Magdy Yacoub made him a/an ____ in cardiovascular surgeries around the world.|exploiting|information overload|unscrupulous|tycoon|d
+Strict laws ought to be imposed on irresponsible, ____ drivers who are on drugs while recklessly endanger innocent lives.|exploiting|information overload|unscrupulous|libel|c
+Heavy viewers (more than four hours a day) tended to report that they enjoy TV less than light viewers did. What is the meaning of "consistently"?|continuously|deprived|wealthy|feeling of discomfort|a
+For some, a twinge of unease that they aren’t doing something more productive may also accompany them. What is meant by "twinge of unease"?|continuously|deprived|wealthy|feeling of discomfort|d
+Heavy viewers of TV are deprecated from its enjoyment. What is meant by "deprecated"?|continuously|deprived|wealthy|feeling of discomfort|b
+The enjoyment of prolonged viewing is lost when you sit too much in front of T.V. What is meant by "prolonged"?|continuously|deprived|long|feeling of discomfort|c
+Researchers in the U.S. have found that these negative feelings occur much more among poor viewers than among less affluent ones. What is the meaning of "affluent"?|Continuously|deprived|wealthy|feeling of discomfort|c
+What does the term "beat" mean in journalism?|A reporter’s regular assignment|A type of music|A type of camera shot|A type of microphone|a
+=17
+What is the term for the person who reads the news on television?|Anchor|Reporter|Correspondent|Producer|a
+What is the term for a story that is not true?|Fiction|Non-fiction|News|Propaganda|a
+What is the term for the process of sending a message from one person to another?|Encoding|Decoding|Transmitting|Receiving|c
+What is the term for the person who operates the camera on a film or television set?|Director|Producer|Cinematographer|Editor|c
+What is the term for the process of removing unwanted parts of a recording?|Editing|Scripting|Producing|Directing|a
+What is the term for the person who creates the script for a film or television show?|Director|Producer|Writer|Editor|c
+What is the term for the person who oversees the entire financial creation process of a film or television show?|Director|Producer|Writer|Editor|b
+What is the term for the process of combining different sounds into a single audio track?|Mixing|Editing|Scripting|Producing|a
+What is the term for the person who provides remarks during a television broadcast?|Anchor|Reporter|Commentator|Producer|c
+What is the term for the person who operates the vocal equipment on a film or television set?|Director|Producer|Sound engineer|Editor|c
+What is the term for the process of creating a visual representation of a script?|Storyboarding|Scripting|Producing|Directing|a
+What is the term for the person who oversees the lighting on a film or television set?|Director|Producer|Lighting technician|Editor|c
+=30
+What is the term for the person who provides on-the-scene reporting during a television broadcast?|Anchor|Reporter|Commentator|Producer|b
+What is the term for the person who oversees the makeup on a film or television set?|Director|Producer|Makeup artist|Editor|c
+What is the term for the person who oversees the outfit designs on a film or television set?|Director|Producer|Wardrobe stylist|Editor|c
+What is the term for the person who oversees the optical illusions on a film or television set?|Director|Producer|Special effects artist|Editor|c
+What is the term for the person who oversees the fake fights on a film or television set?|Director|Producer|Stunt coordinator|Editor|c
+Pains or stiffness in the joints or muscles which can be very difficult to live with is ____.|Infections|Cholesterol|Rheumatism|inflammation|c
+An inactive lifestyle which doesn’t involve exercise is considered a ____ lifestyle.|Sedation|Sedentary|stress-related|vulnerable|b
+For treating diabetes, he must take ____ prescribed by doctors.|traditional medicine|conventional medicine|holistic medicine|healthy diet|b
+Hypertension was not the only reason behind his headache, so he sought a cure from ____ which revealed that his diet and nervous strain were behind his discomfort.|traditional medicine|conventional medicine|holistic medicine|healthy diet|c
+Some research has produced alarming results. What is the synonym of "alarming"?|Promising|Hopeful|Exceptional|dangerous|d
+The upshot of this is that mutant mice remain smaller than normal. What is the synonym of "upshot"?|Outcome|beginning|Introduction|opening|a
+Air conditioning units are often responsible for spreading ____, as they can be easily carried from one person to another.|Vulnerable|Advocates|Infections|underfunding|c
+Premature babies have a weak immune system; they are ____ to many illnesses and can be easily hurt.|Vulnerable|Advocates|Infections|underfunding|a
+The government has reduced its expenditure on the health sector. It suffers from ____ and decreasing financial resources.|Vulnerable|Advocates|Infections|underfunding|d
+Gordon Lithgow discovered a way to help combat free radicals. What is meant by "combat"?|Preserve|Conserve|Defeat|Keep|c
+Despite cautionary words from the scientists, many welcomed the first step towards a drug which would extend life. What is meant by "cautionary"?|Welcoming|Warning|Delaying|postponing|b
+The thought that there might ever be a cure for aging seemed preposterous. What is the meaning of "preposterous"?|Mature|Reasonable|Logical|crazy|d
+Growing older and more decrepit appeared to be an inevitable part of being human. What is the meaning of "decrepit"?|Strong|Low|Weak|high|c
+The primary cause of aging lies in highly reactive molecules called free radicals. What is meant by "free radicals"?|Cells|Tissues|Bones|toxins|d
+Free radicals are implicated in diseases as diverse as cataracts, cancer, and Alzheimer’s. What is the meaning of "diverse"?|Different|Sedentary|Stable|active|a
+Research involving the mutation of genes has thrown up fascinating results. What is the meaning of "fascinating"?|Depressing|Frustrating|Surprising|discouraging|c
+Considering the vast evolutionary distances that separate these species... What is the meaning of "evolutionary"?|Conclusion|Development|Beginning|introduction|b
+London is enthusiastic about the opportunities opened up by extended life. What is the meaning of "enthusiastic"?|Sad|Depressed|Exciting|frustrated|c
+Any discussion of the merits of life-extending therapies must take into account the quality of life. What is meant by "merits"?|Easy|Difficult|Disadvantages|Advantages|d
+One would not wish to prolong life beyond the point it had ceased to be creative. What is the meaning of "ceased"?|Stopped|Began|Continued|Searched|a
+Life-expectancy rose thanks to free or subsidised healthcare. What is the meaning of "subsidised"?|Prevented|Donated|Financed|Deprived|c
+Presumably, they would have to come to a point at which life ceased to be creative. What is the meaning of "presumably"?|Surely|Probably|Assertively|definitely|b
+Government is forcing hospitals to close because it suffers from ____.|increase of numbers of patients|cutbacks and underfunding|Bureaucracy|Dictatorship|b
+Animal rights activists claim the right to ban the ____ of animals inside cages.|censorship|invasion of privacy|underfunding|captivity|d
+Trees provide some protection to the soil from ____.|emissions|lightening|erosion|greenbelt|c
+Don’t drink this water! It’s unhealthy. It’s ____ by something added to it.|clarified|contaminated|condemned|captured|b
+The country succeeded in preserving its forests by very strong ____ programs.|condemnation|contamination|conversation|conservation|d
+Many countries are developing ____ to easily decompose to protect the environment.|biodegradable packaging|non-biodegradable packaging|boxes|bottles|a
+In many countries ____ is considered illegal.|constructing|condemning|poaching|driving|c
+____ received a lot of condemnation as it causes an unhealthy environment for chickens to breathe in.|Poaching|Battery farming|Forest fires|greenbelt|b
+If we don’t do more to protect pandas, they’ll soon be ____.|alive|revived|refreshed|extinct|d
+In an attempt to preserve forests around the country, the government’s ____ programmes have been very successful.|conservation|conversation|wasting|exploiting|a
+I don’t like zoos because I think keeping animals in ____ is cruel.|freedom|release|captivity|reality|c
+To increase the birth rate, the Chinese government has spent a lot of money on a successful panda ____ programme.|breathing|killing|breeding|poaching|c
+Hunters have killed so many animals that ____ is considered more serious than drug smuggling in many countries.|breathing|releasing|breeding|poaching|d
+In Britain, building is restricted or completely banned in the area of ____.|green house|greenbelt|erosion|recycling|b
+The burning of some fuels creates ____ gases which rise into the atmosphere.|green house|greenbelt|erosion|recycling|a
+Farmers have cleared hectares of ____ where the perspiration is very high.|green house|deserts|unleaded petrol|rain forests|d
+Planting trees provides some protection from the gradual wearing away of soil. What is meant by "wearing away of soil"?|emissions|erosion|refreshing|recycling|b
+=75
+These potatoes are ____, without using any chemical fertilisers and pesticides.|recycled|refreshed|biodegradable|organic|d
+The bread is made from wheat which has been altered at a molecular level to change certain inherited characteristics. This means that this bread is ____.|biodegradable|recycled|genetically modified|fresh|c
+More and more cars are built to use fuel which has been made without lead additives. This refers to ____.|leaded petrol|unleaded petrol|emission|erosion|b
+Polluted precipitation which kills trees falls a long distance away from the source of pollution. This type of rain refers to ____.|rain forests|acid rain|natural rain|intermittent rain|b
+Human beings have had a devastating effect on the living things, both large and small, in many parts of the world. What is meant by "living things, both large and small"?|global warming|fossil fuels|contamination|ecosystem|d
+Emissions from factories using oil, coal and other fuels which are the remains of plants and animals can cause serious damage. What is meant by "the remains of plants and animals"?|global warming|fossil fuels|contamination|ecosystem|b
+Friends of the Earth, Greenpeace and other people concerned with protecting the environment are holding a forum in London. These people are ____.|environmentalists|activists|advocates|proponents|a
+The heating up of the earth’s atmosphere by pollution, which threatens life, is called ____.|global warming|fossil fuels|contamination|ecosystem|a
+What is the term for the process of converting waste materials into new materials and objects?|Recycling|Composting|Incineration|Landfilling|a
+What is the term for the process of removing salt from seawater to make it drinkable?|Desalination|Filtration|Chlorination|Sedimentation|a
+What is the term for the process of reducing the amount of waste produced?|Recycling|Composting|Incineration|Waste reduction|d
+What is the term for the process of using living organisms to break down organic matter?|Recycling|Composting|Incineration|Landfilling|b
+What is the term for the process of using natural resources in a way that does not harm the environment?|Sustainability|Conservation|Preservation|Restoration|a
+What is the term for the process of reducing the amount of energy used?|Energy conservation|Energy efficiency|Energy production|Energy consumption|a
+What is the term for the process of using less water?|Water conservation|Water efficiency|Water production|Water consumption|a
+What is the term for the process of using less paper?|Paper conservation|Paper efficiency|Paper production|Paper consumption|a
+What is the term for the process of using less plastic?|Plastic conservation|Plastic efficiency|Plastic production|Plastic consumption|a
+What is the term for the process of using less natural resources?|Resource conservation|Resource efficiency|Resource production|Resource consumption|a
+What is the term for the process of using less land?|Land conservation|Land efficiency|Land production|Land consumption|a
+What is the term for the process of using less air?|Air conservation|Air efficiency|Air production|Air consumption|a
+What is the purpose of an argumentative essay?|To persuade the reader to agree with the writer’s point of view|To provide information about a topic|To entertain the reader|To describe a process|a
+What is the structure of an argumentative essay?|Introduction, body, conclusion|Introduction, conclusion, body|Body, introduction, conclusion|Conclusion, introduction, body|a
+What is the purpose of the introduction in an argumentative essay?|To introduce the topic and provide background information|To summarize the main points of the essay|To provide evidence to support the writer’s argument|To conclude the essay|a
+What is the purpose of the body paragraphs in an argumentative essay?|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To summarize the main points of the essay|To conclude the essay|a
+What is the purpose of the conclusion in an argumentative essay?|To summarize the main points of the essay and restate the thesis|To introduce the topic and provide background information|To provide evidence to support the writer’s argument|To clarify the essay|a
+What is the difference between a persuasive essay and an argumentative essay?|A persuasive essay is more emotional, while an argumentative essay is more logical|A persuasive essay is more logical, while an argumentative essay is more emotional|There is no difference between the two|A persuasive essay is shorter than an argumentative essay|a
+What is the purpose of evidence in an argumentative essay?|To support the writer’s argument|To introduce the topic and provide background information|To summarize the main points of the essay|To conclude the essay|a
+What is the purpose of transitional words and phrases in an argumentative essay?|To connect ideas and make the essay easier to read|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a topic sentence in an argumentative essay?|To introduce the main idea of a paragraph|To provide evidence to support the writer’s argument|To summarize the main points of the essay|To conclude the essay|a
+What is the purpose of a concluding sentence in an argumentative essay?|To summarize the main idea of a paragraph|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a hook in an argumentative essay?|To grab the reader’s attention|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a call to action in an argumentative essay?|To encourage the reader to take action|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a refutation in an argumentative essay?|To address opposing viewpoints and strengthen the writer’s argument|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a persuasive essay?|To entertain the reader|To provide information about a topic|To persuade the reader to agree with the writer’s point of view|To describe a process|c
+What is the structure of a persuasive essay?|Introduction, body, conclusion|Introduction, conclusion, body|Body, introduction, conclusion|Conclusion, introduction, body|a
+What is the purpose of the introduction in a persuasive essay?|To introduce the topic and provide background information|To summarize the main points of the essay|To provide evidence to support the writer’s argument|To conclude the essay|a
+What is the purpose of the body paragraphs in a persuasive essay?|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To summarize the main points of the essay|To conclude the essay|a
+What is the purpose of the conclusion in a persuasive essay?|To summarize the main points of the essay and restate the thesis|To introduce the topic and provide background information|To provide evidence to support the writer’s argument|To clarify the essay|a
+=102
+What is the purpose of evidence in a persuasive essay?|To support the writer’s argument|To introduce the topic and provide background information|To summarize the main points of the essay|To conclude the essay|a
+What is the purpose of transitional words and phrases in a persuasive essay?|To connect ideas and make the essay easier to read|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a topic sentence in a persuasive essay?|To introduce the main idea of a paragraph|To provide evidence to support the writer’s argument|To summarize the main points of the essay|To conclude the essay|a
+What is the purpose of a concluding sentence in a persuasive essay?|To summarize the main idea of a paragraph|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To clarify the essay|a
+What is the purpose of a hook in a persuasive essay?|To grab the reader’s attention|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a
+What is the purpose of a call to action in a persuasive essay?|To encourage the reader to take action|To provide evidence to support the writer’s argument|To introduce the topic and provide background information|To conclude the essay|a`.split("\n").map(l=>l.split("|"));
+const Q=R.map((r,i)=>{if(r[0][0]==="="){r=R[+r[0].slice(1)-1]}return{q:r[0],o:r.slice(1,5),a:"abcd".indexOf(r[5])}});
+let i=0,ans=Array(Q.length).fill(null),pend=Array(Q.length).fill(null),flags=new Set(),mode="quiz";
+try{flags=new Set(JSON.parse(localStorage.getItem("fl")||"[]"))}catch(e){}
+const save=()=>{try{localStorage.setItem("fl",JSON.stringify([...flags]))}catch(e){}};
+const nAns=()=>ans.filter(x=>x!==null).length;
+const nOk=()=>ans.filter((a,k)=>a!==null&&a===Q[k].a).length;
+const $=id=>document.getElementById(id);
+function menu(){
+ const op=$("dr").classList.contains("open");
+ $("dr").innerHTML=`<div class="bk2" id="bk2"></div><div class="pn"><div class="top"><b>قائمة الأسئلة</b><button class="lnk" id="cl">إغلاق</button></div><div class="lg">🟩 صحيح   🟥 خطأ   ⬜ لم ُجب   ★ مهم</div><div class="g">`+Q.map((d,k)=>{const a=ans[k];return `<button class="qb${a===null?"":a===d.a?" ok":" no"}${k===i&&mode==="quiz"?" cur":""}${flags.has(k)?" sr":""}" data-m="${k}">${k+1}</button>`}).join("")+`</div></div>`;
+ const close=()=>$("dr").classList.remove("open");
+ $("bk2").onclick=close;$("cl").onclick=close;
+ document.querySelectorAll(".qb").forEach(b=>b.onclick=()=>{i=+b.dataset.m;mode="quiz";close();render()});
+ $("mb").onclick=()=>{$("dr").classList.add("open");const c=document.querySelector(".qb.cur");if(c)c.scrollIntoView({block:"center"})};
+}
+function chips(list,c){return `<div class="chips">`+list.map(k=>`<button class="chip ${c}" data-j="${k}">${k+1}</button>`).join("")+`</div>`}
+function bindChips(){document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{i=+b.dataset.j;mode="quiz";render()})}
+function render(){
+ menu();
+ if(mode==="res")return res();
+ const d=Q[i],a=ans[i],done=a!==null,p=done?a:pend[i];
+ $("n").textContent=`سؤال ${i+1} من ${Q.length}`;
+ $("s").textContent=`✓ ${nOk()}   ✗ ${nAns()-nOk()}`;
+ $("p").style.width=(nAns()/Q.length*100)+"%";
+ const fb=done?(a===d.a?`<div class="fb ok">✓ إجابة صحيحة</div>`:`<div class="fb no">✗ إجابة خاطئة — الإجابة الصحيحة: ${"ABCD"[d.a]}</div>`):"";
+ $("box").innerHTML=`<div class="top"><button class="fl${flags.has(i)?" on":""}" id="fl">${flags.has(i)?"★ مهم":"☆ تعليم كمهم"}</button><button class="lnk" id="fin">إنهاء وعرض النتيجة</button></div><p class="q">${i+1}. ${d.q}</p>`+d.o.map((t,k)=>`<button class="opt ${done?(k===d.a?"ok":k===a?"no":""):(k===p?"sel":"")}" data-k="${k}" ${done?"disabled":""}>${"ABCD"[k]}. ${t}</button>`).join("")+fb+`<div class="nav"><button class="btn ghost" id="bk" ${i?"":"disabled"}>السابق</button><button class="btn" id="go" ${!done&&p==null?"disabled":""}>${done?(i===Q.length-1?"عرض النتيجة":"التالي"):"إرسال"}</button></div>`;
+ document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(ans[i]!==null)return;pend[i]=+b.dataset.k;render()});
+ $("fl").onclick=()=>{flags.has(i)?flags.delete(i):flags.add(i);save();render()};
+ $("fin").onclick=()=>{mode="res";render()};
+ $("bk").onclick=()=>{if(i>0){i--;render()}};
+ $("go").onclick=()=>{if(ans[i]===null){ans[i]=pend[i]}else if(i===Q.length-1){mode="res"}else{i++}render()};
+}
+function res(){
+ const ok=nOk(),bad=nAns()-ok,un=Q.length-nAns(),pc=Math.round(ok/Q.length*100);
+ const wrong=ans.map((a,k)=>a!==null&&a!==Q[k].a?k:-1).filter(k=>k>=0),fl=[...flags].sort((a,b)=>a-b),skip=ans.map((a,k)=>a===null?k:-1).filter(k=>k>=0);
+ $("n").textContent="النتيجة";$("s").textContent="";$("p").style.width=(nAns()/Q.length*100)+"%";
+ $("box").innerHTML=`<div class="c">النتيجة النهائية</div><div class="big">${pc}%</div><div class="stats"><div class="st g"><b>${ok}</b>إجابات صحيحة</div><div class="st r"><b>${bad}</b>إجابات خاطئة</div><div class="st"><b>${un}</b>لم تتم الإجابة</div><div class="st"><b>${Q.length}</b>إجمالي الأسئلة</div></div>`+(wrong.length?`<h3>الأسئلة الخاطئة (اضغط للمراجعة)</h3>${chips(wrong,"r")}`:"")+(fl.length?`<h3>الأسئلة المهمة ★</h3>${chips(fl,"s")}`:"")+(skip.length?`<h3>أسئلة لم تُجب</h3>${chips(skip,"")}`:"")+`<div class="nav"><button class="btn ghost" id="bq">العودة للاختبار</button><button class="btn" id="rs">إعادة الاختبار</button></div>`;
+ bindChips();
+ $("bq").onclick=()=>{mode="quiz";render()};
+ $("rs").onclick=()=>{ans.fill(null);pend.fill(null);i=0;mode="quiz";render()};
+}
+render();
+/* previous version (unused):
+const $=id=>document.getElementById(id);
+function render(){
+ if(i>=Q.length){
+  $("n").textContent="";$("s").textContent="";$("p").style.width="100%";
+  const pc=Math.round(score/Q.length*100);
+  $("box").innerHTML=`<div class="c">النتيجة النهائية</div><div class="big">${score} / ${Q.length}</div><div class="c">${pc}%</div><button class="btn" id="rs">إعادة الاختبار</button>`;
+  $("rs").onclick=()=>{i=0;score=0;render()};return}
+ const d=Q[i];sel=-1;done=false;
+ $("n").textContent=`سؤال ${i+1} من ${Q.length}`;
+ $("s").textContent=`الدرجة: ${score}`;
+ $("p").style.width=(i/Q.length*100)+"%";
+ $("box").innerHTML=`<p class="q">${i+1}. ${d.q}</p>`+d.o.map((t,k)=>`<button class="opt" data-k="${k}">${"ABCD"[k]}. ${t}</button>`).join("")+`<div class="fb" id="fb"></div><button class="btn" id="go" disabled>إرسال</button>`;
+ document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{if(done)return;sel=+b.dataset.k;document.querySelectorAll(".opt").forEach(x=>x.classList.toggle("sel",x===b));$("go").disabled=false});
+ $("go").onclick=go;
+}
+function go(){
+ if(!done){
+  done=true;const d=Q[i];
+  document.querySelectorAll(".opt").forEach((b,k)=>{b.disabled=true;b.classList.remove("sel");if(k===d.a)b.classList.add("ok");else if(k===sel)b.classList.add("no")});
+  const fb=$("fb");
+  if(sel===d.a){score++;fb.className="fb ok";fb.textContent="✓ إجابة صحيحة"}
+  else{fb.className="fb no";fb.textContent="✗ إجابة خاطئة — الإجابة الصحيحة: "+"ABCD"[d.a]}
+  $("s").textContent=`الدرجة: ${score}`;
+  $("go").textContent=i===Q.length-1?"عرض النتيجة":"السؤال التالي";
+ }else{i++;render()}
+}
+*/
+</script>
+</body>
+</html>
