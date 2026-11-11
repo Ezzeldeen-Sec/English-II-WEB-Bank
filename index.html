@@ -27,15 +27,34 @@ body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-
 .fb.ok{color:var(--ok)}.fb.no{color:var(--no)}
 .big{font-size:44px;text-align:center;margin:8px 0;font-weight:700}
 .c{text-align:center}
-.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.fl{background:none;border:1px solid var(--bd);color:var(--mut);border-radius:20px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}.fl.on{color:var(--star);border-color:var(--star);font-weight:600}.lnk{background:none;border:0;color:var(--mut);text-decoration:underline;font-size:14px;cursor:pointer;font-family:inherit}.nav{display:flex;gap:10px;margin-top:14px}.nav .btn{margin-top:0}.btn.ghost{background:transparent;color:var(--pri);border:2px solid var(--pri)}.opt{line-height:1.45}.card{box-shadow:0 2px 10px rgba(0,0,0,.04)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.st{border-radius:12px;padding:12px;text-align:center;background:var(--bg)}.st b{display:block;font-size:28px}.st.g b{color:var(--ok)}.st.r b{color:var(--no)}.chips{display:flex;flex-wrap:wrap;gap:8px;direction:ltr;margin:8px 0 14px}.chip{min-width:44px;padding:8px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;font-family:inherit;font-size:15px}.chip.r{border-color:var(--no)}.chip.s{border-color:var(--star)}h3{margin:16px 0 0;font-size:16px}.dr{position:fixed;inset:0;z-index:20;display:none}.dr.open{display:block}.bk2{position:absolute;inset:0;background:rgba(0,0,0,.4)}.pn{position:absolute;top:0;bottom:0;right:0;width:min(330px,88vw);background:var(--card);padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto;border-left:1px solid var(--bd)}.g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;direction:ltr;margin-top:10px}.qb{position:relative;padding:10px 0;border-radius:8px;border:2px solid var(--bd);background:var(--bg);color:var(--tx);font-family:inherit;font-size:14px;cursor:pointer}.qb.ok{background:var(--okb);border-color:var(--ok)}.qb.no{background:var(--nob);border-color:var(--no)}.qb.cur{outline:3px solid var(--pri);outline-offset:1px}.qb.sr::after{content:"★";position:absolute;top:-7px;right:-3px;font-size:13px;color:var(--star)}.lg{font-size:13px;color:var(--mut);line-height:1.8}.mb{background:var(--card);border:1px solid var(--bd);color:var(--tx);border-radius:20px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}</style>
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.fl{background:none;border:1px solid var(--bd);color:var(--mut);border-radius:20px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}.fl.on{color:var(--star);border-color:var(--star);font-weight:600}.lnk{background:none;border:0;color:var(--mut);text-decoration:underline;font-size:14px;cursor:pointer;font-family:inherit}.nav{display:flex;gap:10px;margin-top:14px}.nav .btn{margin-top:0}.btn.ghost{background:transparent;color:var(--pri);border:2px solid var(--pri)}.opt{line-height:1.45}.card{box-shadow:0 2px 10px rgba(0,0,0,.04)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.st{border-radius:12px;padding:12px;text-align:center;background:var(--bg)}.st b{display:block;font-size:28px}.st.g b{color:var(--ok)}.st.r b{color:var(--no)}.chips{display:flex;flex-wrap:wrap;gap:8px;direction:ltr;margin:8px 0 14px}.chip{min-width:44px;padding:8px 10px;border-radius:8px;border:1px solid var(--bd);background:var(--card);color:var(--tx);cursor:pointer;font-family:inherit;font-size:15px}.chip.r{border-color:var(--no)}.chip.s{border-color:var(--star)}h3{margin:16px 0 0;font-size:16px}.dr{position:fixed;inset:0;z-index:20;display:none}.dr.open{display:block}.bk2{position:absolute;inset:0;background:rgba(0,0,0,.4)}.pn{position:absolute;top:0;bottom:0;right:0;width:min(330px,88vw);background:var(--card);padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px));padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));overflow-y:auto;border-left:1px solid var(--bd)}.g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;direction:ltr;margin-top:10px}.qb{position:relative;padding:10px 0;border-radius:8px;border:2px solid var(--bd);background:var(--bg);color:var(--tx);font-family:inherit;font-size:14px;cursor:pointer}.qb.ok{background:var(--okb);border-color:var(--ok)}.qb.no{background:var(--nob);border-color:var(--no)}.qb.cur{outline:3px solid var(--pri);outline-offset:1px}.qb.sr::after{content:"★";position:absolute;top:-7px;right:-3px;font-size:13px;color:var(--star)}.lg{font-size:13px;color:var(--mut);line-height:1.8}.mb{background:var(--card);border:1px solid var(--bd);color:var(--tx);border-radius:20px;padding:6px 12px;font-size:14px;cursor:pointer;font-family:inherit}
+.footer-credit{text-align:center;margin-top:16px;font-size:12px;color:var(--mut);letter-spacing:0.5px;font-family:system-ui,-apple-system,sans-serif;}
+</style>
 </head>
 <body>
 <div class="w">
 <div class="meta"><button class="mb" id="mb">☰ قائمة الأسئلة</button><span id="n"></span><span id="s"></span></div><div class="dr" id="dr"></div>
 <div class="bar"><i id="p"></i></div>
 <div class="card" id="box"></div>
+<div class="footer-credit">Designed by LOAI & Enhanced by EZZ</div>
 </div>
 <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const swCode = `
+      const CACHE_NAME = 'quiz-cache-v1';
+      self.addEventListener('install', e => {
+        e.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll([location.href])));
+      });
+      self.addEventListener('fetch', e => {
+        e.respondWith(caches.match(e.request).then(res => res || fetch(e.request)));
+      });
+    `;
+    const blob = new Blob([swCode], { type: 'text/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(err => console.log('SW error', err));
+  });
+}
+
 const R=`A collection of related pages on the World Wide Web created by a company, organization, or an individual is called ____.|log on|download|broadcasts|websites|d
 The international network linking millions of computers is called ____.|tabloids|download|website|the internet|d
 People who write for newspapers or periodicals are ____.|coverage|websites|journalists|current affairs|c
@@ -230,7 +249,6 @@ function render(){
  $("p").style.width = (nAns() / Q.length * 100) + "%";
  const fb = done ? (a === d.a ? `<div class="fb ok">✓ إجابة صحيحة</div>` : `<div class="fb no">✗ إجابة خاطئة — الإجابة الصحيحة: ${"ABCD"[d.a]}</div>`) : "";
  
- // تم إضافة زر حل الكل تحت "إنهاء وعرض النتيجة" مباشرة بنفس الشكل مع أيقونة العين 👁
  $("box").innerHTML = `<div class="top"><button class="fl${flags.has(i) ? " on" : ""}" id="fl">${flags.has(i) ? "★ مهم" : "☆ تعليم كمهم"}</button><button class="lnk" id="fin">إنهاء وعرض النتيجة</button></div><button class="lnk" id="solve_all_btn" style="display:block; margin:4px 0 12px; color:var(--pri); font-weight:600;">👁 حل الكل وعرض الإجابات</button><p class="q">${i + 1}. ${d.q}</p>` + d.o.map((t, k) => `<button class="opt ${done ? (k === d.a ? "ok" : (k === a ? "no" : "")) : ""}" data-k="${k}">${"ABCD"[k]}. ${t}</button>`).join("") + fb + `<div class="nav"><button class="btn ghost" id="bk" ${i ? "" : "disabled"}>السابق</button><button class="btn" id="go" ${i === Q.length - 1 ? "" : ""}>${i === Q.length - 1 ? "عرض النتيجة" : "التالي"}</button></div>`;
  
  document.querySelectorAll(".opt").forEach(b => b.onclick = () => {
